@@ -9,7 +9,7 @@ class Pokemon
     @db = db
     @@all << self
   end
-  def alter_hp(hp, database_connection)
+  def alter_hp(hp, database_connection) #couldn't get the tests to run, got rid of x[it] but wouldn't work with this
     database_connection.execute("UPDATE pokemont SET hp = ? WHERE id = ?", hp, self.id)
   end
 
