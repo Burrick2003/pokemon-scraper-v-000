@@ -9,16 +9,16 @@ class Pokemon
     @db = db
     @@all << self
   end
-  def alter_hp(hp, database_connection)
-    database_connection.execute("UPDATE pokemont SET hp = ? WHERE id = ?", hp, self.id)
-  end
+
   def self.all
     @@all
   end
   def self.save(name, type, database_connection)
     database_connection.execute("INSERT INTO pokemon (name, type) VALUES (?, ?)", name, type)
   end
-
+  def alter_hp(new_hp, db)
+      db.execute("UPDATE pokemon SET hp = ? WHERE id = ?", new_hp, self.id)
+    end
   def self.find(id, database_connection)
     temp = database_connection.execute("SELECT * FROM pokemon WHERE id=?", id).flatten
     Pokemon.new(id:temp[0], name:temp[1], type:temp[2], hp:temp[3], db:database_connection)
